@@ -10,8 +10,8 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableRow from '@material-ui/core/TableRow';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import { Button, Grid } from '@material-ui/core';
-import Modal from './Modal';
 
+import Modal from './Modal';
 import store from '../store';
 import { observer } from 'mobx-react';
 

@@ -7,7 +7,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import LinearIndeterminate from './LinearIndeterminate';
 
-export default function Modal({ title, text, handleClose }) {
+const Modal = ({ title, text, handleClose }) => {
   return (
     <div>
       <Dialog
@@ -34,4 +34,6 @@ export default function Modal({ title, text, handleClose }) {
       </Dialog>
     </div>
   );
-}
+};
+
+export default Modal;

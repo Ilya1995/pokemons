@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import store from '../store';
-import NameFilter from './Filter';
+import Filter from './Filter';
 import Pagination from './Pagination';
 import PanelDetails from './PanelDetails';
 import PanelSummary from './PanelSummary';
@@ -39,7 +39,7 @@ const PokemonPanels = () => {
   return (
     <div>
       <h1>Pokemon repository</h1>
-      <NameFilter getPokemos={store.getPokemos} />
+      <Filter getPokemos={store.getPokemos} />
       {store.loading ? (
         <CircularProgress className="circular-progress" disableShrink />
       ) : (

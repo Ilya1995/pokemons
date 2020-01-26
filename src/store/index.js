@@ -8,24 +8,12 @@ class Store {
   loading = false;
   filter = { name: '', type: [] };
 
-  setPokemonsData = payload => {
-    this.pokemonsData = payload;
-  };
-
-  setSpeciesPokemon = payload => {
-    this.speciesPokemon = payload;
-  };
-
   setLoading = payload => {
     this.loading = payload;
   };
 
   setAbility = payload => {
     this.ability = payload;
-  };
-
-  setFilter = payload => {
-    this.filter = payload;
   };
 
   searchNames = pokemonNames => {
@@ -58,7 +46,7 @@ class Store {
     this.setLoading(true);
     if (this.filter.name || this.filter.type.length || data.filter) {
       if (data.filter) {
-        this.setFilter(data.filter);
+        this.filter = data.filter;
       }
 
       if (this.filter.type.length) {
@@ -90,12 +78,8 @@ class Store {
       })
       .catch(err => {
         console.log(err);
-      })
-      .finally(() =>
-        setTimeout(() => {
-          this.setLoading(false);
-        }, 1000)
-      );
+        this.setLoading(false);
+      });
   };
 
   filterType = data => {
@@ -117,12 +101,8 @@ class Store {
       })
       .catch(err => {
         console.log(err);
-      })
-      .finally(() =>
-        setTimeout(() => {
-          this.setLoading(false);
-        }, 1000)
-      );
+        this.setLoading(false);
+      });
   };
 
   filterName = data => {
@@ -138,12 +118,8 @@ class Store {
       })
       .catch(err => {
         console.log(err);
-      })
-      .finally(() =>
-        setTimeout(() => {
-          this.setLoading(false);
-        }, 1000)
-      );
+        this.setLoading(false);
+      });
   };
 
   pagination = (data, pagination) => {
@@ -165,16 +141,17 @@ class Store {
     Promise.all(requests)
       .then(responses => Promise.all(responses.map(r => r.json())))
       .then(pokemons => {
-        this.setPokemonsData({ pokemons, totalCount });
+        this.pokemonsData = { pokemons, totalCount };
       })
       .catch(err => {
         console.log(err);
-      });
+      })
+      .finally(() => this.setLoading(false));
   };
 
   getSpeciesPokemon = id => {
     if (this.speciesPokemon && this.speciesPokemon.id !== id) {
-      this.setSpeciesPokemon(null);
+      this.speciesPokemon = null;
     }
     let species;
     fetch(`https://pokeapi.co/api/v2/pokemon-species/${id}`, {
@@ -214,7 +191,7 @@ class Store {
                 img: pokemon.sprites.front_default,
               };
             });
-            this.setSpeciesPokemon(species);
+            this.speciesPokemon = species;
           });
       })
       .catch(err => {
@@ -228,10 +205,11 @@ Store = decorate(Store, {
   speciesPokemon: observable,
   ability: observable,
   loading: observable,
-  getPokemos: action,
   getSpeciesPokemon: action,
-  getAbility: action,
-  setFilter: action,
+  setAbility: action,
+  getPokemos: action,
+  detailedInformation: action,
+  setLoading: action,
 });
 
 export default new Store();

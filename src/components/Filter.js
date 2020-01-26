@@ -8,7 +8,7 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Input from '@material-ui/core/Input';
 
-const NameFilter = ({ getPokemos }) => {
+const Filter = ({ getPokemos }) => {
   const [name, setName] = useState(null);
   const [type, setType] = useState([]);
 
@@ -78,4 +78,4 @@ const NameFilter = ({ getPokemos }) => {
   );
 };
 
-export default NameFilter;
+export default Filter;

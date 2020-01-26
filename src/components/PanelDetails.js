@@ -39,7 +39,7 @@ export default function PanelDetails({ pokemon, speciesPokemon }) {
             </Table>
           </TableContainer>
           <div>
-            <Typography>Types pokemon</Typography>
+            <Typography>Types pokemon:</Typography>
             <List component="nav" aria-label="mailbox folders">
               {pokemon.types.map(type => (
                 <ListItem button key={type.type.name} divider>
