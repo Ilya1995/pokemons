@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Typography from '@material-ui/core/Typography';
@@ -97,6 +98,10 @@ const PanelSummary = ({ pokemon }) => {
       )}
     </ExpansionPanelSummary>
   );
+};
+
+PanelSummary.propTypes = {
+  pokemon: PropTypes.object.isRequired,
 };
 
 export default observer(PanelSummary);

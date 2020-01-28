@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import LinearIndeterminate from './LinearIndeterminate';
 
 import Typography from '@material-ui/core/Typography';
@@ -14,7 +15,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import { Grid } from '@material-ui/core';
 
-export default function PanelDetails({ pokemon, speciesPokemon }) {
+const PanelDetails = ({ pokemon, speciesPokemon }) => {
   return (
     <>
       <ExpansionPanelDetails>
@@ -24,7 +25,7 @@ export default function PanelDetails({ pokemon, speciesPokemon }) {
           justify="space-around"
           alignItems="flex-start"
         >
-          <TableContainer className="table-stats" component={Paper}>
+          <TableContainer className="table-stats">
             <Table aria-label="simple table">
               <TableBody>
                 {pokemon.stats.map(stat => (
@@ -52,7 +53,12 @@ export default function PanelDetails({ pokemon, speciesPokemon }) {
       </ExpansionPanelDetails>
       <ExpansionPanelDetails>
         {speciesPokemon ? (
-          <div>
+          <Grid
+            container
+            direction="column"
+            justify="flex-start"
+            alignItems="flex-start"
+          >
             <Typography>Evolution Chain</Typography>
             <TableContainer component={Paper}>
               <Table aria-label="simple table">
@@ -76,11 +82,18 @@ export default function PanelDetails({ pokemon, speciesPokemon }) {
                 </TableBody>
               </Table>
             </TableContainer>
-          </div>
+          </Grid>
         ) : (
           <LinearIndeterminate />
         )}
       </ExpansionPanelDetails>
     </>
   );
-}
+};
+
+PanelDetails.propTypes = {
+  pokemon: PropTypes.object.isRequired,
+  speciesPokemon: PropTypes.object,
+};
+
+export default PanelDetails;

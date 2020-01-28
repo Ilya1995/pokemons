@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import TableContainer from '@material-ui/core/TableContainer';
@@ -47,6 +48,11 @@ const Pagination = ({ count, getPokemos }) => {
       </Table>
     </TableContainer>
   );
+};
+
+Pagination.propTypes = {
+  count: PropTypes.number.isRequired,
+  getPokemos: PropTypes.func.isRequired,
 };
 
 export default Pagination;

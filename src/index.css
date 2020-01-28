@@ -18,7 +18,7 @@ code {
 }
 
 .table-stats {
-  width: 30% !important;
+  width: auto !important;
 }
 
 .typography-abilities {
@@ -33,6 +33,7 @@ code {
 .form-control {
   min-width: 120px !important;
   max-width: 170px !important;
+  padding-right: 1.5rem !important;
 }
 
 #standard-basic {
@@ -40,7 +41,7 @@ code {
 }
 
 .MuiTextField-root {
-  padding-right: 2rem !important;
+  padding-right: 1.5rem !important;
 }
 
 .circular-progress {
@@ -49,4 +50,25 @@ code {
   padding: 10rem 0;
   margin: auto;
   display: block !important;
+}
+
+.filter-container {
+  margin-bottom: 15px;
+  text-align: right;
+}
+
+.text-center {
+  text-align: center;
+}
+
+@media screen and (max-width: 500px) {
+  #standard-basic {
+    max-width: 100px !important;
+  }
+  .form-control {
+    min-width: 100px !important;
+  }
+  .table-container {
+    max-width: 300px;
+  }
 }

@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-
+import Grid from '@material-ui/core/Grid';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
@@ -42,7 +43,13 @@ const Filter = ({ getPokemos }) => {
   };
 
   return (
-    <div>
+    <Grid
+      container
+      direction="row"
+      justify="flex-end"
+      alignItems="flex-end"
+      className="filter-container"
+    >
       <TextField
         id="standard-basic"
         label="name"
@@ -74,8 +81,12 @@ const Filter = ({ getPokemos }) => {
       >
         Search
       </Button>
-    </div>
+    </Grid>
   );
+};
+
+Filter.propTypes = {
+  getPokemos: PropTypes.func.isRequired,
 };
 
 export default Filter;

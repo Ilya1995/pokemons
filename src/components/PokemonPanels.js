@@ -38,7 +38,7 @@ const PokemonPanels = () => {
 
   return (
     <div>
-      <h1>Pokemon repository</h1>
+      <h1 className="text-center">Pokemon repository</h1>
       <Filter getPokemos={store.getPokemos} />
       {store.loading ? (
         <CircularProgress className="circular-progress" disableShrink />
