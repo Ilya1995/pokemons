@@ -1,4 +1,5 @@
 import { decorate, observable, action } from 'mobx';
+import _ from 'lodash';
 import 'whatwg-fetch';
 
 class Store {
@@ -19,28 +20,27 @@ class Store {
   searchNames = pokemonNames => {
     let resNames = [];
     pokemonNames.forEach(pokemon => {
-      if (pokemon.name.indexOf(this.filter.name) !== -1) {
+      if (pokemon.name.includes(this.filter.name)) {
         resNames.push(pokemon);
       }
     });
     return resNames;
   };
 
-  getAbility = url => {
-    fetch(url, {
-      method: 'get',
-      headers: {
-        'Content-type': 'application/json',
-      },
-    })
-      .then(response => response.json())
-      .then(json => {
-        this.setAbility(json.effect_entries[0].effect);
-      })
-      .catch(err => {
-        console.log(err);
+  async getAbility(url) {
+    try {
+      let response = await fetch(url, {
+        method: 'get',
+        headers: {
+          'Content-type': 'application/json',
+        },
       });
-  };
+      let json = await response.json();
+      this.setAbility(json.effect_entries[0].effect);
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
   getPokemos = data => {
     this.setLoading(true);
@@ -72,7 +72,6 @@ class Store {
       .then(response => response.json())
       .then(json => {
         let totalCount = json.count;
-
         let requests = json.results.map(result => fetch(result.url));
         this.detailedInformation(requests, totalCount);
       })
@@ -167,18 +166,14 @@ class Store {
       })
       .then(response => response.json())
       .then(json => {
-        let evolution = [json.chain.species.name];
-        if (json.chain.evolves_to[0]) {
-          evolution.push(json.chain.evolves_to[0].species.name);
-          if (json.chain.evolves_to[0].evolves_to[0]) {
-            evolution.push(json.chain.evolves_to[0].evolves_to[0].species.name);
-          } else {
-            if (json.chain.evolves_to[1]) {
-              evolution.push(json.chain.evolves_to[1].species.name);
-            }
-          }
-        }
-
+        let evolution = _.compact(
+          _.at(json, [
+            'chain.species.name',
+            'chain.evolves_to[0].species.name',
+            'chain.evolves_to[0].evolves_to[0].species.name',
+            'chain.evolves_to[1].species.name',
+          ])
+        );
         let requests = evolution.map(name =>
           fetch(`https://pokeapi.co/api/v2/pokemon/${name}`)
         );
